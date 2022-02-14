@@ -1,0 +1,37 @@
+IMPORTANT!
+The first time that you run the command at point (3), db_init.js will be launched.
+Wait a minute for the database to get filled. Each subsequent time that you run the command 
+at point (3), please first set the .env variable 
+
+INIT_DB=NO
+
+(1) pull the project
+
+(2) run:
+    sudo docker-compose build 
+
+(3) run:
+    sudo docker-compose up
+
+
+API LIST:
+
+    BASE URL = localhost:3000/ed_connect/
+
+    - listBreeds (GET)
+    List all the breeds
+
+    - create (POST)
+        Create a new document for the given dog/breeds. If the breeds does not exists,
+        it's created
+        JSON EXAMPLE TO SEND AS BODY:
+        {
+            "breed":"test",
+             "picture":"test"
+        }       
+        
+    - random/{breed} (GET)
+        return a random dog for the given breed
+
+    
+
