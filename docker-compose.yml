@@ -1,0 +1,30 @@
+# docker-compose.yml
+
+version: "3.7"
+services:
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ed_connect
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports: 
+      - '5432:5432'
+    volumes:
+      - ed_connect:/var/lib/postgresql/data
+
+  ed_connect:
+    build:
+      context: .
+    depends_on:
+      - postgres
+    ports:
+      - '3000:3000'
+    command: sh -c "/wait && node ./db_init.js $$INIT_DB && npm run start"
+    environment:
+      WAIT_HOSTS: postgres:5432
+      INIT_DB: "${INIT_DB}"
+        
+volumes:
+  ed_connect:
